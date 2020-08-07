@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">文章详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+    <link href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet"/>
+    <!--gitalk 评论插件-->
+    <link href="https://unpkg.com/gitalk/dist/gitalk.css" rel="stylesheet">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body>
+<!--导航栏-->
+<div class="ui inverted segment">
+    <div class="ui inverted secondary menu">
+        <a class="item" href="/">
+            <img alt="logo" class="logo" src="/img/logo.png" style="margin: -1rem 1.5rem">
+            风听墨吟
+        </a>
+        <a class="active item">Home</a>
+        <a class="item" href="/category">Category</a>
+        <a class="item" href="/about">About me</a>
+    </div>
+</div>
+
+<!-- 主内容 -->
+<div class="ui container">
+    <h1 class="ui header" th:text="${post.title}"></h1>
+    <div class="ui grid container two column vertically" style="color: rgba(0,0,0,0.4)">
+        <div class="column">
+            目录：
+            <a th:href="@{/(categoryId=${post.categoryId})}"
+               class="ui label blue"
+               target="_blank" th:text="${post.categoryName}"></a>
+            <span th:text="${post.pageViews+'次阅读'}"></span>
+        </div>
+        <div class="column right aligned">
+            <span class="" th:text="${post.createTime}"></span>
+        </div>
+    </div>
+
+    <div class="ui divider"></div>
+    <div class="tui-editor-contents" th:utext="${post.content}"></div>
+    <div id="gitalk-container"></div>
+</div>
+<script th:inline="javascript">
+    /*
+     * 使用thymeleaf初始化article变量
+     */
+    // var post = [[${post}]];
+    var gitalk = new Gitalk({
+        clientID: 'cb782fb2dd5b5c445088',
+        clientSecret: 'c904d1b9005a10213cbf54e0a790ae80d985eb57',
+        repo: 'blog-gitalk',
+        owner: 'joye-wang',
+        admin: ['joye-wang'],
+        // id必须为字符串
+        id: [[${post.id}]] + '',
+        title: [[${post.title}]],
+    });
+    gitalk.render('gitalk-container');
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wang.joye.blog.mapper.PostMapper">
+    <resultMap id="PostResultMap" type="wang.joye.blog.entity.Post">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="md_content" property="mdContent"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="status" property="status"/>
+        <result column="page_views" property="pageViews"/>
+        <result column="create_time" property="updateTime"/>
+        <result column="update_time" property="createTime"/>
+        <collection column="id" property="tags" ofType="wang.joye.blog.entity.PostTag">
+            <result column="tag_id" property="tagId"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <!--where条件sql-->
+    <sql id="conditionSql">
+        <where>
+            <if test="search != null and search != ''">
+                title LIKE CONCAT('%',#{search},'%')
+                OR id in (select post_id from post_tag where tag_name like concat('%', #{search}, '%'))
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <if test="showHidden eq false">
+                AND status = 1
+            </if>
+        </where>
+    </sql>
+
+    <!--取出文章及标签-->
+    <!--like语句后的变量，左右不能直接跟%，会被当成字符串，同时为了避免sql注入，要使用concat-->
+    <select id="listPost" resultMap="PostResultMap">
+        SELECT
+        temp.id, temp.title, temp.category_id, temp.category_name,
+        temp.status, temp.page_views, temp.create_time, temp.update_time,
+        pt.tag_id, pt.tag_name
+        FROM
+        (
+        SELECT *
+        FROM post
+        <include refid="conditionSql"/>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{rows}
+        ) temp
+        LEFT JOIN post_tag pt ON temp.id = pt.post_id
+    </select>
+
+    <select id="countPost" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        post
+        <include refid="conditionSql"/>
+    </select>
+
+    <select id="getPostByAdmin" resultMap="PostResultMap">
+        select p.*, pt.*
+        from post p
+        left join post_tag pt
+        on p.id = pt.post_id
+        where p.id = #{id}
+    </select>
+
+    <select id="getPostByUser" resultMap="PostResultMap">
+        select p.id, p.title, p.category_id, p.category_name, p.content,
+        p.page_views, p.create_time, p.update_time, pt.tag_id, pt.tag_name
+        from post p
+        left join post_tag pt
+        on p.id = pt.post_id
+        where p.id = #{id}
+        and status = 1
+    </select>
+</mapper>

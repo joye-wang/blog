@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+<div id="about">
+    <!-- 导航栏 -->
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary menu">
+            <a class="item" href="/">
+                <img class="logo" src="img/logo.png" style="margin: -1rem 1.5rem"> 风听墨吟
+            </a>
+            <a class="item" href="/">Home</a>
+            <a class="item" href="category">Category</a>
+            <a class="active item" href="">About me</a>
+        </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="ui container grid">
+        <div class="twelve wide column ui divided items">
+            <div class="item">
+                <img th:src="${info['headImgUrl']}" class="ui rounded image small ">
+                <div class="content">
+                    <h3><i class="address card outline icon"></i><span th:text="${info.nickname}"></span></h3>
+                    <p><i class="location arrow icon"></i><span th:text="${info.location}"></span></p>
+                    <p><i class="paperclip icon"></i><span th:text="${info.motto}"></span></p>
+                    <p><i class="envelope icon"></i><span th:text="${info.email}"></span></p>
+                    <p><i class="github icon"></i><span th:text="${info.github}"></span></p>
+                </div>
+            </div>
+            <div class="item">
+                <div>
+                    <h3> 关于博客 </h3>
+                    <p th:text="${info.about}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="four wide column">
+            <h3>友情链接</h3>
+            <div class="ui bulleted list">
+                <a th:href="friend.link" class="item" target="_blank" th:each="friend:${friends}"
+                   th:text="${friend.name}"></a>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragment/fragment::footer"></div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#about',
+        data: {},
+        methods: {},
+        created() {
+        }
+    });
+</script>
+</body>
+
+</html>

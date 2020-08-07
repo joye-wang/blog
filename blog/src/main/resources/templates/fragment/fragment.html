@@ -1,0 +1,15 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="footer">
+    <div class="ui divider"></div>
+    <!-- 页脚 -->
+    <div class="ui center aligned container">
+            <span style="color: #767676; font-size: 14px">
+                <script>
+                    document.write('©' + new Date().getFullYear() + " · ")
+                </script>
+                <a class="item" th:href="${domain}" th:text="${domain}"></a>
+                · All Rights Reserved&nbsp;· <span th:text="${icp}"></span>
+            </span>
+    </div>
+</div>

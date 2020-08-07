@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="archive">
+    <!-- 导航栏 -->
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary menu">
+            <a class="item" href="/">
+                <img class="logo" src="img/logo.png" style="margin: -1rem 1.5rem"> 风听墨吟
+            </a>
+            <a class="item" href="/">Home</a>
+            <a class="active item" href="#">Category</a>
+            <a class="item" href="about">About me</a>
+        </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="ui container">
+        <!-- 文章列表 -->
+        <div class="ui divided items">
+            <div class="item" th:each="item:${categories}">
+                <div class="content">
+                    <h4>
+                        <a th:href="@{/(categoryId=${item.id})}"
+                           class="ui header" th:text="${item.name}"></a>
+                    </h4>
+                    <div class="extra">
+                        <span th:text="${item.createTime}"></span>
+                        <span th:text="${'共'+item.postCount+'篇文章'}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页脚 -->
+    <div th:replace="fragment/fragment::footer"></div>
+</div>
+</body>
+
+</html>
