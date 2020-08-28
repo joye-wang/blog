@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import wang.joye.blog.util.IpUtil;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Slf4j
@@ -65,5 +66,16 @@ public class BlogApiApplication extends SpringBootServletInitializer implements 
         config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
         fastJsonConvert.setFastJsonConfig(config);
         converters.add(0, fastJsonConvert);
+    }
+
+    @PostConstruct
+    public void init() {
+        /*
+         * 注册shutdown钩子，当应用程序正常关闭时，会调用这里的方法
+         * kill -9时，不会触发这段代码
+         */
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("Blog Application is stopped");
+        }));
     }
 }

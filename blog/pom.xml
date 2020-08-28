@@ -42,13 +42,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <profile>
-            <!-- 测试环境 -->
-            <id>test</id>
-            <properties>
-                <profiles.active>test</profiles.active>
-            </properties>
-        </profile>
     </profiles>
 
     <dependencies>
@@ -89,7 +82,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
