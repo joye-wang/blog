@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.tianyu</groupId>
-    <artifactId>blog-api</artifactId>
+    <artifactId>blog</artifactId>
     <version>1.2.2</version>
     <packaging>jar</packaging>
     <name>我的blog</name>
