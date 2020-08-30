@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 cd blog-admin-vue
 npm run build
 
@@ -8,7 +11,5 @@ cd ../blog-api
 mvn clean package -P prod
 
 systemctl stop blog
-
 mv target/blog.jar /blog/daemon/
-
 systemctl start blog
