@@ -3,9 +3,6 @@ target/
 logs/
 !.mvn/wrapper/maven-wrapper.jar
 
-src/main/resources/application-prod.properties
-src/main/resources/application-secret.properties
-
 ### STS ###
 .apt_generated
 .classpath
