@@ -4,10 +4,10 @@ set -e
 cd blog-admin-vue
 npm run build
 
-rm -rf ../blog-api/src/main/resources/static/admin
-mv dist ../blog-api/src/main/resources/static/admin
+rm -rf ../blog/src/main/resources/static/admin
+mv dist ../blog/src/main/resources/static/admin
 
-cd ../blog-api
+cd ../blog
 mvn clean package -P prod
 
 systemctl stop blog

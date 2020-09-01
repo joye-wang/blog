@@ -177,7 +177,6 @@ export default {
 </script>
 
 <style scoped>
-@import "~vditor/dist/index.css";
 
 .container {
   max-width: 1260px;
