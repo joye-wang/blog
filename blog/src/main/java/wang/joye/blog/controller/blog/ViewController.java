@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * 页面渲染控制器
+ * 用于SEO优化
  *
  * @author joye
  * @since 2018-08-13
@@ -70,7 +71,7 @@ public class ViewController {
     }
 
     /**
-     * 获取文章目录
+     * 目录页
      */
     @GetMapping("category")
     public ModelAndView category() {
@@ -80,9 +81,6 @@ public class ViewController {
         return mav;
     }
 
-    /**
-     * 获取文章目录
-     */
     @GetMapping("about")
     public ModelAndView about() {
         ModelAndView mav = new ModelAndView("about");
