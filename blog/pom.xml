@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.tianyu</groupId>
+    <groupId>wang.joye</groupId>
     <artifactId>blog</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <packaging>jar</packaging>
     <name>我的blog</name>
     <description>博客描述</description>
@@ -129,15 +129,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!--是否使用参数值代替参数名。参数值取自properties元素或者文件里配置的属性，文件在filters元素里列出-->
-                <!--filter会破坏font文件的信息，导致浏览器无法显示element图标-->
-                <!--可以排除font目录，此处直接设置为false-->
-                <filtering>false</filtering>
-            </resource>
-        </resources>
     </build>
 
 </project>
