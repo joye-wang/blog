@@ -35,7 +35,7 @@ export function toggleStatus(postId,status) {
 
 export function deletePost(postId) {
   return http({
-    url: 'posts/delete',
+    url: 'posts',
     method: 'delete',
     params: {
       postId
@@ -53,7 +53,7 @@ export function publishPost(post) {
 
 export function editPost(post) {
   return http({
-    url: 'posts/edit',
+    url: 'posts',
     method: 'put',
     data: post
   })

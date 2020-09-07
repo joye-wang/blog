@@ -1,5 +1,10 @@
 package wang.joye.blog.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import wang.joye.blog.controller.action.CreateAction;
 import wang.joye.blog.controller.action.UpdateAction;
 import wang.joye.blog.entity.PostTag;
@@ -7,11 +12,6 @@ import wang.joye.blog.entity.Tag;
 import wang.joye.blog.exception.BusinessException;
 import wang.joye.blog.service.PostTagService;
 import wang.joye.blog.service.TagService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class TagController {
     }
 
     @PostMapping
-    public void insertTag(@Validated(CreateAction.class) Tag tag) throws BusinessException {
+    public void insertTag(@Validated(CreateAction.class) Tag tag) {
         int count = tagService.count(new QueryWrapper<Tag>().lambda().eq(Tag::getName, tag.getName()));
         if (count > 0) {
             throw new BusinessException("标签名称已经存在");
@@ -43,9 +43,9 @@ public class TagController {
         tagService.save(tag);
     }
 
-    @DeleteMapping
-    public void deleteTag(long tagId) {
-        tagService.removeById(tagId);
+    @DeleteMapping("{id}")
+    public void deleteTag(@PathVariable Long id) {
+        tagService.removeById(id);
     }
 
     @PutMapping
