@@ -15,7 +15,7 @@ window.LOGIN_TIME = "loginTime"
 
 window.QINIU = {
   // 上传后，资源访问前缀
-  CDN_PREFIX: "http://cdn.tianyu-studio.cn/",
+  CDN_PREFIX: "http://cdn.joye.wang/",
   // 上传路径
   UPLOAD_URL: "http://upload.qiniu.com/"
 }

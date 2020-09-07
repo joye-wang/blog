@@ -142,7 +142,7 @@ export default {
     },
     submit() {
       delete this.post.postTags;
-      this.post.status = this.status ? window.ARTICLE.SHOW : window.ARTICLE.HIDDEN;
+      this.post.status = this.isShow ? window.ARTICLE.SHOW : window.ARTICLE.HIDDEN;
       // 获取html 内容
       this.post.content = this.$refs.editor.d_render;
       if (this.postId) {

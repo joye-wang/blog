@@ -33,38 +33,36 @@
     <div class="ui container grid">
         <!-- 文章列表 -->
         <div class="twelve wide column ui divided items">
-            <div class="item" th:if="${data.records.size() > 0}">
-                <div th:each="post: ${data.records}">
-                    <div class="content">
-                        <a th:href="@{'post/'+${post.id}}" th:text="${post.title}" class="ui header">test
-                            title</a>
-                        <div class="meta">
-                            <a class="ui blue basic label" th:each="tag:${post.tags}"
-                               th:text="${tag.tagName}"></a>
-                        </div>
-                        <div class="extra">
-                            <span th:text="${post.createTime}"></span>
-                            目录：
-                            <a th:href="@{/(categoryId=${post.categoryId})}"
-                               class="ui label green"
-                               target="_blank" th:text="${post.categoryName}"></a>
-                            <span th:text="${post.pageViews+'次阅读'}"></span>
-                        </div>
+            <div class="item" th:each="post: ${data.records}">
+                <div class="content">
+                    <a th:href="@{'post/'+${post.id}}" th:text="${post.title}" class="ui header">test
+                        title</a>
+                    <div class="meta">
+                        <a class="ui blue basic label" th:each="tag:${post.tags}"
+                           th:text="${tag.tagName}"></a>
+                    </div>
+                    <div class="extra">
+                        <span th:text="${post.createTime}"></span>
+                        目录：
+                        <a th:href="@{/(categoryId=${post.categoryId})}"
+                           class="ui label green"
+                           target="_blank" th:text="${post.categoryName}"></a>
+                        <span th:text="${post.pageViews+'次阅读'}"></span>
                     </div>
                 </div>
-                <!--分页-->
-                <div th:with="pages=${@thymeleafBean.ceil(data.total/1.0/data.size)}">
-                    <div class="ui pagination menu" th:if="${pages} > 1">
-                        <a class="item" th:href="${data.current>1}?@{/(current=${data.current-1})}:'#'">
-                            <i class="left arrow icon"></i> </a>
-                        <a th:each="i:${#numbers.sequence(1, pages)}" class="item"
-                           th:classappend="${i==data.current}?'active'"
-                           th:href="@{/(current=${i})}"
-                           th:text="${i}">
-                        </a>
-                        <a class="item" th:href="${data.current<pages}?@{/(current=${data.current+1})}:'#'">
-                            <i class="right arrow icon"></i> </a>
-                    </div>
+            </div>
+            <!--分页-->
+            <div th:with="pages=${@thymeleafBean.ceil(data.total/1.0/data.size)}">
+                <div class="ui pagination menu" th:if="${pages} > 1">
+                    <a class="item" th:href="${data.current>1}?@{/(current=${data.current-1})}:'#'">
+                        <i class="left arrow icon"></i> </a>
+                    <a th:each="i:${#numbers.sequence(1, pages)}" class="item"
+                       th:classappend="${i==data.current}?'active'"
+                       th:href="@{/(current=${i})}"
+                       th:text="${i}">
+                    </a>
+                    <a class="item" th:href="${data.current<pages}?@{/(current=${data.current+1})}:'#'">
+                        <i class="right arrow icon"></i> </a>
                 </div>
             </div>
             <div th:unless="${data.records.size() > 0}" style="text-align: center;color: #767676; font-size: 16px">
