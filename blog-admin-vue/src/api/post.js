@@ -35,11 +35,8 @@ export function toggleStatus(postId,status) {
 
 export function deletePost(postId) {
   return http({
-    url: 'posts',
+    url: 'posts/'+postId,
     method: 'delete',
-    params: {
-      postId
-    }
   });
 }
 

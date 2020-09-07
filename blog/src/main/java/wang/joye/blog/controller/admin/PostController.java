@@ -66,9 +66,9 @@ public class PostController {
         return postService.insertPost(post);
     }
 
-    @DeleteMapping
-    public void deletePost(@NotNull Long articleId) {
-        postService.deleteArticle(articleId);
+    @DeleteMapping("{id}")
+    public void deletePost(@PathVariable @NotNull Long id) {
+        postService.deleteArticle(id);
     }
 
     @PutMapping

@@ -6,7 +6,7 @@ export function listCategory() {
 
 export function addCategory(archive) {
   return http({
-    url: '/categories/create',
+    url: '/categories',
     method: 'post',
     data: archive
   });
@@ -14,7 +14,7 @@ export function addCategory(archive) {
 
 export function updateCategory(archive) {
   return http({
-    url: '/categories/update',
+    url: '/categories',
     method: 'put',
     data: archive
   })
@@ -22,7 +22,7 @@ export function updateCategory(archive) {
 
 export function deleteCategory(archiveId) {
   return http({
-    url: '/categories/delete',
+    url: '/categories',
     method: 'delete',
     params: {
       archiveId
