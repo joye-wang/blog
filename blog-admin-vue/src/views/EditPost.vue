@@ -141,11 +141,12 @@ export default {
       });
     },
     submit() {
-      delete this.post.postTags;
+      delete this.post.tags;
       this.post.status = this.isShow ? window.ARTICLE.SHOW : window.ARTICLE.HIDDEN;
       // 获取html 内容
       this.post.content = this.$refs.editor.d_render;
       if (this.postId) {
+
         editPost(this.post).then(res => {
           this.$message.success("更新成功");
           // update post after edit
