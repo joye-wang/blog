@@ -57,7 +57,7 @@ public class PostController {
      * 添加文章后返回主键
      */
     @PostMapping
-    public long addPost(@Validated Post post) throws BusinessException {
+    public long addPost(@Validated @RequestBody Post post) throws BusinessException {
         int count = postService.count(Wrappers.<Post>lambdaQuery().eq(Post::getTitle, post.getTitle()));
         if (count > 0)
             throw new BusinessException("文章标题已存在");
@@ -72,7 +72,7 @@ public class PostController {
     }
 
     @PutMapping
-    public void updatePost(@Validated({UpdateAction.class, Default.class}) Post post) {
+    public void updatePost(@Validated({UpdateAction.class, Default.class}) @RequestBody Post post) {
         categoryService.checkCategory(post.getCategoryId());
         postService.updatePost(post);
     }

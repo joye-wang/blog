@@ -7,7 +7,8 @@ export function resetPwd(oldPwd, newPwd) {
     data: {
       oldPwd,
       newPwd
-    }
+    },
+    type: 'form'
   });
 }
 
@@ -18,7 +19,8 @@ export function login(username, password) {
     data: {
       username: username,
       password: password
-    }
+    },
+    type: 'form'
   });
 }
 

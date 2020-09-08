@@ -18,7 +18,8 @@ export function movePost(postId, newCategoryId) {
     params: {
       postId,
       newCategoryId
-    }
+    },
+    type: 'form'
   });
 }
 
@@ -29,7 +30,8 @@ export function toggleStatus(postId,status) {
     data: {
       postId,
       status
-    }
+    },
+    type: 'form'
   });
 }
 

@@ -8,15 +8,13 @@ import router from '@/router'
 
 // 创建axios实例
 const instance = axios.create({
-  baseURL:process.env.VUE_APP_SERVER_URL
+  baseURL: process.env.VUE_APP_SERVER_URL
 });
 
 instance.interceptors.request.use(
   config => {
-    // 将post请求的json data转化为表单数据
-    config.transformRequest = [function (data) {
-      return qs.stringify(data);
-    }];
+    // type:form，代表是表单
+    config.data = config.type == 'form' ? qs.stringify(config.data) : config.data;
     return config;
   },
   error => {

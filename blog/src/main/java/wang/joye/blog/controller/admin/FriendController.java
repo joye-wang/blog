@@ -31,7 +31,7 @@ public class FriendController {
     }
 
     @PostMapping
-    public void insertFriend(@Validated(CreateAction.class) Friend friend) throws BusinessException {
+    public void insertFriend(@Validated(CreateAction.class) @RequestBody Friend friend) throws BusinessException {
         friendService.save(friend);
     }
 
@@ -41,7 +41,7 @@ public class FriendController {
     }
 
     @PutMapping
-    public void updateFriend(@Validated(UpdateAction.class) Friend friend) {
+    public void updateFriend(@Validated(UpdateAction.class) @RequestBody Friend friend) {
         friendService.update(new UpdateWrapper<Friend>().lambda()
                 .set(Friend::getName, friend.getName())
                 .set(Friend::getLink, friend.getLink())

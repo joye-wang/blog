@@ -34,7 +34,7 @@ public class ParamController {
     }
 
     @PostMapping
-    public void insert(@Validated({CreateAction.class, Default.class}) Param param) {
+    public void insert(@Validated({CreateAction.class, Default.class}) @RequestBody Param param) {
         int count = paramService.count(Wrappers.<Param>lambdaQuery().eq(Param::getK, param.getK()));
         if (count > 0) {
             throw new BusinessException("相同key已存在");
@@ -45,7 +45,7 @@ public class ParamController {
     }
 
     @PutMapping
-    public void updateValue(@Validated({Default.class, UpdateAction.class}) Param param) {
+    public void updateValue(@Validated({Default.class, UpdateAction.class}) @RequestBody Param param) {
         param.setCreateTime(null);
         param.setUpdateTime(LocalDateTime.now());
         paramService.update(param, Wrappers.<Param>lambdaUpdate().eq(Param::getId, param.getId()));

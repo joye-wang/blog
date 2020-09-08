@@ -13,6 +13,7 @@ import wang.joye.blog.exception.BusinessException;
 import wang.joye.blog.service.PostTagService;
 import wang.joye.blog.service.TagService;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class TagController {
     }
 
     @PostMapping
-    public void insertTag(@Validated(CreateAction.class) Tag tag) {
+    public void insertTag(@Validated(CreateAction.class) @RequestBody Tag tag) {
         int count = tagService.count(new QueryWrapper<Tag>().lambda().eq(Tag::getName, tag.getName()));
         if (count > 0) {
             throw new BusinessException("标签名称已经存在");
@@ -44,12 +45,12 @@ public class TagController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteTag(@PathVariable Long id) {
+    public void deleteTag(@PathVariable @NotNull Long id) {
         tagService.removeById(id);
     }
 
     @PutMapping
-    public void updateTag(@Validated(UpdateAction.class) Tag tag) {
+    public void updateTag(@Validated(UpdateAction.class) @RequestBody Tag tag) {
         // 更新关联中的冗余字段
         articleTagService.update(new UpdateWrapper<PostTag>().lambda().set(PostTag::getTagName, tag.getName()).eq(PostTag::getTagId, tag.getTagId()));
         tagService.updateById(tag);

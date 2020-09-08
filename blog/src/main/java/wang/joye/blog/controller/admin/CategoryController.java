@@ -2,6 +2,7 @@ package wang.joye.blog.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import wang.joye.blog.controller.action.CreateAction;
@@ -26,51 +27,47 @@ import java.util.List;
 @RequestMapping("categories")
 public class CategoryController {
 
-    private final CategoryService archiveService;
-    private final PostService articleService;
-
-    public CategoryController(CategoryService archiveService, PostService articleService) {
-        this.archiveService = archiveService;
-        this.articleService = articleService;
-    }
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private PostService postService;
 
     @GetMapping
     public List<Category> listCategory() {
-        return archiveService.list(new QueryWrapper<Category>().lambda().orderByDesc(Category::getCreateTime));
+        return categoryService.list(new QueryWrapper<Category>().lambda().orderByDesc(Category::getCreateTime));
     }
 
     @GetMapping("{id}")
     public Category getCategory(@NotNull @PathVariable Long id) {
-        return archiveService.getById(id);
+        return categoryService.getById(id);
     }
 
     @PostMapping
-    public void addArchive(@Validated({CreateAction.class, Default.class}) Category category) throws BusinessException {
-        int count = archiveService.count(new QueryWrapper<Category>().lambda().eq(Category::getName, category.getName()));
+    public void addArchive(@Validated({CreateAction.class, Default.class}) @RequestBody Category category) throws BusinessException {
+        int count = categoryService.count(new QueryWrapper<Category>().lambda().eq(Category::getName, category.getName()));
         if (count > 0) {
             throw new BusinessException("系列名称已经存在");
         }
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(category.getCreateTime());
-        archiveService.save(category);
+        categoryService.save(category);
     }
 
-    @DeleteMapping
-    public void deleteArchive(@NotNull Long archiveId) {
-        archiveService.removeById(archiveId);
+    @DeleteMapping("{id}")
+    public void deleteArchive(@PathVariable @NotNull Long id) {
+        categoryService.removeById(id);
         // 删除archive后，把文章的系列也置为null
-        articleService.update(new UpdateWrapper<Post>().lambda().eq(Post::getCategoryId, archiveId).
+        postService.update(new UpdateWrapper<Post>().lambda().eq(Post::getCategoryId, id).
                 set(Post::getCategoryId, null).set(Post::getCategoryName, null));
     }
 
     @PutMapping
-    public void updateArchive(@Validated({UpdateAction.class, Default.class}) Category category) {
+    public void updateArchive(@Validated({UpdateAction.class, Default.class}) @RequestBody Category category) {
         // 只更新archive的name
-        archiveService.update(new UpdateWrapper<Category>().lambda().set(Category::getName, category.getName())
+        categoryService.update(new UpdateWrapper<Category>().lambda().set(Category::getName, category.getName())
                 .set(Category::getUpdateTime, LocalDateTime.now())
                 .eq(Category::getId, category.getId()));
         // 更新文章表的冗余字段
-        articleService.update(new UpdateWrapper<Post>().lambda().set(Post::getCategoryName, category.getName()).eq(Post::getCategoryId, category.getId()));
+        postService.update(new UpdateWrapper<Post>().lambda().set(Post::getCategoryName, category.getName()).eq(Post::getCategoryId, category.getId()));
     }
 }
-

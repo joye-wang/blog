@@ -20,12 +20,6 @@ export function updateCategory(archive) {
   })
 }
 
-export function deleteCategory(archiveId) {
-  return http({
-    url: '/categories',
-    method: 'delete',
-    params: {
-      archiveId
-    }
-  })
+export function deleteCategory(id) {
+  return http.delete('/categories/' + id);
 }
