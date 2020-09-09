@@ -78,4 +78,16 @@ public class BlogApiApplication extends SpringBootServletInitializer implements 
             log.info("Blog Application is stopped");
         }));
     }
+
+    /**
+     * 本地允许跨域
+     */
+    /*@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .allowCredentials(true);
+    }*/
 }

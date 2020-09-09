@@ -33,7 +33,7 @@
             plain
             icon="el-icon-delete"
             type="danger"
-            @click="deleteCategory(scope.row.categoryId)"
+            @click="deleteCategory(scope.row.id)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -101,13 +101,13 @@ export default {
         this.categories = res.data.data;
       });
     },
-    deleteCategory(articleId) {
+    deleteCategory(id) {
       this.$confirm("此操作不可恢复，是否继续？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        deleteCategory(articleId).then(res => {
+        deleteCategory(id).then(res => {
           this.$message.success("删除成功");
           this.listCategory();
         });
