@@ -110,7 +110,7 @@ export default {
         this.$set(
           this.post,
           "tagIds",
-          this.post.postTags.map(tag => {
+          this.post.tags.map(tag => {
             return tag.tagId;
           })
         );
