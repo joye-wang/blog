@@ -102,7 +102,7 @@ export default {
       });
     },
     deleteCategory(id) {
-      this.$confirm("此操作不可恢复，是否继续？", "提示", {
+      this.$confirm("将会移除对应文章的目标，是否继续？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

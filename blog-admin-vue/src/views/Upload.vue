@@ -10,20 +10,26 @@
 
 <script>
 import { upload } from "@/api/upload";
+import { Message, MessageBox } from "element-ui";
+
 export default {
   data() {
     return {
       base64: "",
       file: "",
-      url: ""
+      url: "",
     };
   },
   methods: {
     upload() {
-      upload(this.file).then(res => {
-        // 上传完成后，显示url
-        this.url = res.data.url;
-      });
+      upload(this.file)
+        .then((res) => {
+          // 上传完成后，显示url
+          this.url = res.data.url;
+        })
+        .catch((error) => {
+          this.$message.error("上传错误："+error.response.status);
+        });
     },
     readFile(file) {
       var reader = new FileReader();
@@ -34,17 +40,17 @@ export default {
           this.base64 = reader.result;
         }
       };
-    }
+    },
   },
   mounted() {
-    document.getElementById("input").addEventListener("paste", event => {
+    document.getElementById("input").addEventListener("paste", (event) => {
       if (!(event.clipboardData && event.clipboardData.items)) {
         return;
       }
       var item = event.clipboardData.items[0];
 
       if (item.kind === "string") {
-        item.getAsString(str => {
+        item.getAsString((str) => {
           alert("paste string?");
         });
       } else if (item.kind === "file") {
@@ -52,7 +58,7 @@ export default {
         this.readFile(this.file);
       }
     });
-  }
+  },
 };
 </script>
 

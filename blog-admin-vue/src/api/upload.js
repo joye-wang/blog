@@ -21,6 +21,6 @@ export function upload(file) {
       // TODO 错误判断
       res.data.url = window.QINIU.CDN_PREFIX + res.data.key;
       return res;
-    });
+    })
   })
 }

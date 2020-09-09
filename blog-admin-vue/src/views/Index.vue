@@ -74,6 +74,7 @@
 <script>
 import { resetPwd, logout } from "@/api/admin";
 import { getValue } from "@/api/param";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -84,21 +85,22 @@ export default {
       newPassword2: "",
       blogInfo: {},
       headImgUrl: "",
-      nickname: ""
+      nickname: "",
     };
   },
   methods: {
     getAdminInfo() {
-      getValue("headImgUrl").then(res => {
+      getValue("headImgUrl").then((res) => {
         this.headImgUrl = res.data.data;
       });
-      getValue("nickname").then(res => {
+      getValue("nickname").then((res) => {
         this.nickname = res.data.data;
       });
     },
     logout() {
       this.$confirm("是否确认退出登录", "提示")
         .then(() => {
+          Cookies.remove(window.LOGIN_TIME);
           logout();
           this.$router.push("login");
         })
@@ -110,7 +112,7 @@ export default {
         this.newPassword = this.newPassword2 = "";
         return;
       }
-      resetPwd(this.oldPassword, this.newPassword).then(res => {
+      resetPwd(this.oldPassword, this.newPassword).then((res) => {
         this.$message.success("修改密码成功，下次登录生效");
       });
     },
@@ -123,12 +125,12 @@ export default {
           this.logout();
           break;
       }
-    }
+    },
   },
   created() {
     this.getAdminInfo();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 

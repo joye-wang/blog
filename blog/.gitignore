@@ -2,6 +2,8 @@ HELP.md
 target/
 logs/
 !.mvn/wrapper/maven-wrapper.jar
+src/main/resources/static/admin/
+src/main/resources/static/admin/
 
 ### STS ###
 .apt_generated
