@@ -1,13 +1,12 @@
 package wang.joye.blog.controller.admin;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import wang.joye.blog.controller.action.CreateAction;
 import wang.joye.blog.controller.action.UpdateAction;
 import wang.joye.blog.entity.Friend;
-import wang.joye.blog.exception.BusinessException;
 import wang.joye.blog.service.FriendService;
 
 import javax.validation.constraints.NotNull;
@@ -31,7 +30,9 @@ public class FriendController {
     }
 
     @PostMapping
-    public void insertFriend(@Validated(CreateAction.class) @RequestBody Friend friend) throws BusinessException {
+    public void insertFriend(@Validated(CreateAction.class) @RequestBody Friend friend) {
+        friend.setCreateTime(LocalDateTime.now());
+        friend.setUpdateTime(friend.getCreateTime());
         friendService.save(friend);
     }
 
@@ -42,10 +43,10 @@ public class FriendController {
 
     @PutMapping
     public void updateFriend(@Validated(UpdateAction.class) @RequestBody Friend friend) {
-        friendService.update(new UpdateWrapper<Friend>().lambda()
-                .set(Friend::getName, friend.getName())
-                .set(Friend::getLink, friend.getLink())
-                .set(Friend::getUpdateTime, LocalDateTime.now())
+        friend.setCreateTime(null);
+        friend.setUpdateTime(LocalDateTime.now());
+
+        friendService.update(friend, Wrappers.<Friend>lambdaUpdate()
                 .eq(Friend::getId, friend.getId())
         );
     }
