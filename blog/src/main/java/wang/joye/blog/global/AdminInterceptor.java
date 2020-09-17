@@ -14,6 +14,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.debug(request.getRequestURI());
         HttpSession session = request.getSession();
         if (session.getAttribute(Constants.SESSION_KEY_ADMIN_ID) == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
