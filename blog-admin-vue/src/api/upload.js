@@ -5,11 +5,12 @@ export function getUploadToken() {
   return http.get('/qiniu/token');
 }
 
-export function upload(file) {
+export function upload(name, file) {
   return getUploadToken().then(res => {
     let param = new FormData();
     param.append("token", res.data.data);
     param.append("file", file);
+    param.append("resource_key", name);
     return axios({
       url: window.QINIU.UPLOAD_URL,
       method: 'post',
