@@ -50,8 +50,9 @@ public class RestControllerAspect {
         String buffer = "********* request log *********\n" +
                 String.format("http method: %s %s\n", request.getMethod(), request.getRequestURI()) +
                 String.format("class method: %s %s\n", className, classMethod) +
-                String.format("args: %s\n", jsonArgs) +
-                String.format("remote ip: %s", ip);
+                String.format("params: %s\n", JSON.toJSONString(request.getParameterMap())) +
+                        String.format("args: %s\n", jsonArgs) +
+                        String.format("remote ip: %s", ip);
         log.info(buffer);
 
         return joinPoint.proceed();

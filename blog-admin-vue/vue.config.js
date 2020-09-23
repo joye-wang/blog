@@ -4,7 +4,12 @@ module.exports = {
   devServer: {
     // npm项目访问端口
     port: 9001,
-    proxy: 'http://localhost:8081'
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true
+      },
+    }
   }
-
 }
