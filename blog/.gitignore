@@ -3,7 +3,7 @@ target/
 logs/
 !.mvn/wrapper/maven-wrapper.jar
 src/main/resources/static/admin/
-src/main/resources/static/admin/
+src/main/resources/application-local.properties
 
 ### STS ###
 .apt_generated

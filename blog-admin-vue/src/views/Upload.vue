@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div>
-      <el-input v-model="dir" slot="prepend" placeholder="请指定目录" />
-      <el-input slot="append" v-model="fileName" placeholder="请指定文件名" />
+    <div class="file-attr">
+      <span>请指定目录</span
+      ><el-input style="width: 100px" v-model="dir" placeholder="请指定目录" />
+      <span>请指定文件名</span
+      ><el-input
+        style="width: 100px"
+        v-model="fileName"
+        placeholder="请指定文件名"
+      />
     </div>
     <div class="paste-div" type="text" @paste="pasteImg($event)">
       先点击此处，再粘贴图片
@@ -23,6 +29,7 @@
 <script>
 import { upload } from "@/api/upload";
 import { Message, MessageBox } from "element-ui";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -44,11 +51,11 @@ export default {
         this.$message.error("请指定文件名");
         return;
       }
-      upload(this.file, this.dir + "/" + this.fileName)
-        .then((res) => {
-          // 上传完成后，显示url
-          this.url = res.data.url;
-        });
+      Cookies.set("dir", this.dir);
+      upload(this.file, this.dir + "/" + this.fileName).then((res) => {
+        // 上传完成后，显示url
+        this.url = res.data.url;
+      });
     },
     pasteImg(event) {
       console.debug("paste", event);
@@ -75,7 +82,9 @@ export default {
       }
     },
   },
-  mounted() {},
+  created() {
+    this.dir = Cookies.get("dir");
+  },
 };
 </script>
 
@@ -95,7 +104,7 @@ export default {
 }
 
 .paste-div {
-  margin:20px 0;
+  margin: 20px 0;
   color: #c0c4cc;
   width: 200px;
   height: 160px;
@@ -104,5 +113,9 @@ export default {
   align-items: center;
   font-size: 15px;
   background: #f5f7fa;
+}
+
+.file-attr > * {
+    margin-right: 20px;
 }
 </style>

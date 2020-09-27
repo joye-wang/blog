@@ -31,7 +31,6 @@ export function upload(file, name) {
     }).catch(error => {
       console.error('上传文件出错', error.response);
       Message.error("上传错误：" + error.response.data.error);
-      return error;
     })
   })
 }

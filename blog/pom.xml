@@ -24,26 +24,6 @@
         <fastjson.version>1.2.66</fastjson.version>
     </properties>
 
-    <profiles>
-        <profile>
-            <!-- 生产环境 -->
-            <id>prod</id>
-            <properties>
-                <profiles.active>prod</profiles.active>
-            </properties>
-        </profile>
-        <profile>
-            <!-- 本地开发环境 -->
-            <id>dev</id>
-            <properties>
-                <profiles.active>dev</profiles.active>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
-
     <dependencies>
         <!-- 阿里json转换库 -->
         <dependency>
