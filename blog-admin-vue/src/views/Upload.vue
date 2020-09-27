@@ -58,7 +58,7 @@ export default {
       });
     },
     pasteImg(event) {
-      console.debug("paste", event);
+      console.debug("paste event:", event);
       if (!(event.clipboardData && event.clipboardData.items)) {
         return;
       }
@@ -67,7 +67,7 @@ export default {
       if (item.kind === "string") {
         item.getAsString((str) => {
           this.$message.error("无法粘贴文本");
-          console.log("pastee", str);
+          console.log("paste string:", str);
         });
       } else if (item.kind === "file") {
         this.file = item.getAsFile();
