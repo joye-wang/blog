@@ -88,7 +88,7 @@ public class BlogApiApplication extends SpringBootServletInitializer implements 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
-                .addPathPatterns("/**")
+                .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/admins/login");
     }
 }
