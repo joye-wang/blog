@@ -42,7 +42,7 @@
                            th:text="${tag.tagName}"></a>
                     </div>
                     <div class="extra">
-                        <span th:text="${post.createTime}"></span>
+                        <span th:text="${#temporals.format(post.createTime, 'yyyy-MM-dd HH:mm')}"></span>
                         目录：
                         <a th:href="@{/(categoryId=${post.categoryId})}"
                            class="ui label green"

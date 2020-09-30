@@ -2,19 +2,19 @@
   <div>
     <div class="file-attr">
       <span>请指定目录</span
-      ><el-input style="width: 100px" v-model="dir" placeholder="请指定目录" />
+      ><el-input style="width: 200px" v-model="dir" placeholder="请指定目录" />
       <span>请指定文件名</span
       ><el-input
-        style="width: 100px"
+        style="width: 200px"
         v-model="fileName"
         placeholder="请指定文件名"
       />
     </div>
-    <div class="paste-div" type="text" @paste="pasteImg($event)">
-      先点击此处，再粘贴图片
+    <div style="width:260px; margin:20px 0">
+    <el-input @paste="pasteImg($event)" placeholder="在此处粘贴图片"></el-input>
     </div>
-    <span>预览</span>
     <el-image
+      alt="预览"
       fit="contain"
       class="image"
       :src="base64"
@@ -59,7 +59,13 @@ export default {
     },
     pasteImg(event) {
       console.debug("paste event:", event);
-      if (!(event.clipboardData && event.clipboardData.items)) {
+      if (
+        !(
+          event.clipboardData &&
+          event.clipboardData.items &&
+          event.clipboardData.items[0]
+        )
+      ) {
         return;
       }
       var item = event.clipboardData.items[0];
@@ -116,6 +122,6 @@ export default {
 }
 
 .file-attr > * {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 </style>

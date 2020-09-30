@@ -36,7 +36,7 @@
             <span th:text="${post.pageViews+'次阅读'}"></span>
         </div>
         <div class="column right aligned">
-            <span class="" th:text="${post.createTime}"></span>
+            <span class="" th:text="${#temporals.format(post.createTime, 'yyyy-MM-dd HH:mm')}"></span>
         </div>
     </div>
 
