@@ -10,8 +10,9 @@
         placeholder="请指定文件名"
       />
     </div>
-    <div style="width:260px; margin:20px 0">
-    <el-input @paste="pasteImg($event)" placeholder="在此处粘贴图片"></el-input>
+    <div style="width: 260px; margin: 20px 0">
+      <el-input @paste.native="pasteImg" placeholder="在此处粘贴图片" type="textarea" v-model="dir"></el-input>
+      <!-- <div id="a" contenteditable="true" @paste="pasteImg($event)">test</div> -->
     </div>
     <el-image
       alt="预览"
@@ -59,6 +60,8 @@ export default {
     },
     pasteImg(event) {
       console.debug("paste event:", event);
+      // console.debug('paste file:', event.clipboardData.files, event.clipboardData.items);
+      // console.debug('paste html:', document.getElementById('a').innerHTML);
       if (
         !(
           event.clipboardData &&
