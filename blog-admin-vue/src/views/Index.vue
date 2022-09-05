@@ -134,7 +134,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .my-input {
   margin-bottom: 20px;
 }
